@@ -62,7 +62,7 @@ resource "digitalocean_record" "play" {
   type   = "A"
   name   = "play"
   value  = "44.215.246.168"
-  ttl    = 3600
+  ttl    = 300
 }
 
 resource "digitalocean_record" "web" {
@@ -70,7 +70,7 @@ resource "digitalocean_record" "web" {
   type   = "A"
   name   = "web"
   value  = "44.215.246.168"
-  ttl    = 3600
+  ttl    = 300
 }
 
 resource "digitalocean_record" "database" {
@@ -78,7 +78,7 @@ resource "digitalocean_record" "database" {
   type   = "CNAME"
   name   = "db"
   value  = "twohoursonelife.cbqw2zmra9kl.us-east-1.rds.amazonaws.com."
-  ttl    = 43200
+  ttl    = 3600
 }
 
 
@@ -91,7 +91,7 @@ resource "digitalocean_record" "twotech" {
   type   = "A"
   name   = "twotech"
   value  = "44.216.122.169"
-  ttl    = 3600
+  ttl    = 300
 }
 
 resource "digitalocean_record" "twotech_edge" {
@@ -99,7 +99,7 @@ resource "digitalocean_record" "twotech_edge" {
   type   = "A"
   name   = "edge.twotech"
   value  = "44.216.122.169"
-  ttl    = 3600
+  ttl    = 300
 }
 
 
