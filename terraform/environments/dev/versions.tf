@@ -1,4 +1,6 @@
 terraform {
+  required_version = "~> 1.9"
+
   backend "local" {
     path = "terraform.tfstate"
   }
@@ -12,6 +14,5 @@ terraform {
 }
 
 provider "digitalocean" {
-  # Set via environment variable DIGITALOCEAN_TOKEN
-  # token = ""
+  # Set token via environment variable DIGITALOCEAN_TOKEN
 }

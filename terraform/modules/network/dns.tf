@@ -2,7 +2,6 @@ resource "digitalocean_domain" "main" {
   name = var.domain
 }
 
-
 #
 # NS records
 #
@@ -27,6 +26,35 @@ resource "digitalocean_record" "ns3" {
   domain = digitalocean_domain.main.id
   type   = "NS"
   name   = "@"
+  value  = "ns3.digitalocean.com."
+  ttl    = 86400
+}
+
+
+#
+# NS records
+#
+
+resource "digitalocean_record" "dev_ns1" {
+  domain = digitalocean_domain.main.id
+  type   = "NS"
+  name   = "dev"
+  value  = "ns1.digitalocean.com."
+  ttl    = 86400
+}
+
+resource "digitalocean_record" "dev_ns2" {
+  domain = digitalocean_domain.main.id
+  type   = "NS"
+  name   = "dev"
+  value  = "ns2.digitalocean.com."
+  ttl    = 86400
+}
+
+resource "digitalocean_record" "dev_ns3" {
+  domain = digitalocean_domain.main.id
+  type   = "NS"
+  name   = "dev"
   value  = "ns3.digitalocean.com."
   ttl    = 86400
 }

@@ -4,7 +4,7 @@
 # Local state is an appropriate solution for this project
 # .tfstate files
 # *.tfstate
-# *.tfstate.*
+*.tfstate.*
 
 # Crash log files
 crash.log
