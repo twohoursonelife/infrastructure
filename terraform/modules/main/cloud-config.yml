@@ -1,0 +1,12 @@
+#cloud-config
+users:
+  - name: thol
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo
+    shell: /bin/bash
+runcmd:
+  - export DEBIAN_FRONTEND=noninteractive
+  - cp -r /root/.ssh /home/thol
+  - chown thol:thol -R /home/thol/.ssh/
+  - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - systemctl restart ssh

@@ -1,4 +1,4 @@
 variable "domain" {
-  description = "TLD for the environment"
+  description = "TLD"
   type        = string
 }
