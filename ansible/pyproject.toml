@@ -1,0 +1,8 @@
+[project]
+name = "ansible-private"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "ansible-lint>=6.8.7 ; platform_system != 'Windows'",
+    "ansible>=10.5.0",
+]
