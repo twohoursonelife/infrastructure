@@ -37,8 +37,6 @@
           - php5.6-xml
           - php5.6-xdebug
           - nginx
-          - certbot
-          - python3-certbot-nginx
 
     - name: Setup firewall
       community.general.ufw:
@@ -85,6 +83,7 @@
         owner: '{{ ansible_user }}'
         group: '{{ ansible_user }}'
 
+    # TODO: Handle if changes locally
     - name: Clone web repository
       become: false
       ansible.builtin.git:
@@ -119,6 +118,7 @@
         state: link
 
     # TODO: Idempotent
+    # Cant be completed with SSL config present before cert generated
     - name: Reload nginx
       ansible.builtin.systemd:
         name: nginx
@@ -129,16 +129,18 @@
       ansible.builtin.git:
         clone: true
         repo: https://github.com/twohoursonelife/OneLifeData7
-        version: 2HOL_v20317
+        version: 2HOL_v20318
         dest: /var/www/{{ web_domain }}/OneLifeData7
 
     - name: Setup faces
+      become: false
       ansible.builtin.file:
         src: '/var/www/{{ web_domain }}/OneLifeData7/faces'
         dest: '/var/www/{{ web_domain }}/web/public/lineageServer/faces'
         state: link
 
     - name: Setup downloads
+      become: false
       ansible.builtin.file:
         src: '/var/www/{{ web_domain }}/data/diffDownloads/patches'
         dest: '/var/www/{{ web_domain }}/web/public/downloads'
