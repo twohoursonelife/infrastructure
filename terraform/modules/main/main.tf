@@ -9,6 +9,10 @@ resource "digitalocean_droplet" "play" {
   monitoring = true
   user_data  = file("${path.module}/cloud-config.yml")
 
+  tags = [
+    "alerts",
+  ]
+
   # Manually managed in UI
   ssh_keys = [
     "9c:f5:b6:ad:26:64:31:4d:77:36:3e:28:d3:3e:9d:3a",
