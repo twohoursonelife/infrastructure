@@ -83,13 +83,13 @@
         owner: '{{ ansible_user }}'
         group: '{{ ansible_user }}'
 
+    # TODO: Idempotent
     # TODO: Handle if changes locally
-    - name: Clone web repository
+    - name: Clone web repository # noqa: latest
       become: false
       ansible.builtin.git:
         clone: true
         repo: https://github.com/twohoursonelife/OneLifeWeb
-        version: b4332d8
         dest: /var/www/{{ web_domain }}
 
     # TODO: Idempotent
@@ -124,12 +124,12 @@
         name: nginx
         state: reloaded
 
-    - name: Clone faces
+    # TODO: Idempotent
+    - name: Clone faces # noqa: latest
       become: false
       ansible.builtin.git:
         clone: true
         repo: https://github.com/twohoursonelife/OneLifeData7
-        version: 2HOL_v20318
         dest: /var/www/{{ web_domain }}/OneLifeData7
 
     - name: Setup faces

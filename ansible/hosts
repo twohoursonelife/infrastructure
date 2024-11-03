@@ -1,5 +1,4 @@
 [dev]
-play.dev.twohoursonelife.com ansible_host=159.203.121.211 ansible_user=thol web_domain=web.dev.twohoursonelife.com
 
 [prod]
 play.twohoursonelife.com ansible_host=159.203.121.211 ansible_user=thol web_domain=web.twohoursonelife.com
