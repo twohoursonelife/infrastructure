@@ -142,7 +142,7 @@
     - name: Setup downloads
       become: false
       ansible.builtin.file:
-        src: '/var/www/{{ web_domain }}/data/diffDownloads/patches'
+        src: '/var/www/{{ web_domain }}/data/diffDownloads'
         dest: '/var/www/{{ web_domain }}/web/public/downloads'
         state: link
 
