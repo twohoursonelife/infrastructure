@@ -89,7 +89,7 @@ resource "digitalocean_record" "play" {
   domain = digitalocean_domain.main.id
   type   = "A"
   name   = "play"
-  value  = "44.215.246.168"
+  value  = "45.55.120.214"
   ttl    = 300
 }
 
