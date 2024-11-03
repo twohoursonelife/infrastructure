@@ -97,7 +97,7 @@ resource "digitalocean_record" "web" {
   domain = digitalocean_domain.main.id
   type   = "A"
   name   = "web"
-  value  = "44.215.246.168"
+  value  = "45.55.120.214"
   ttl    = 300
 }
 
