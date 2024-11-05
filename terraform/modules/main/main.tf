@@ -33,3 +33,9 @@ resource "digitalocean_reserved_ip_assignment" "play" {
   ip_address = digitalocean_reserved_ip.play.ip_address
   droplet_id = digitalocean_droplet.play.id
 }
+
+resource "digitalocean_spaces_bucket" "twohoursonelife" {
+  name   = "twohoursonelife"
+  region = "nyc3"
+  acl    = "private"
+}
