@@ -74,10 +74,10 @@ resource "digitalocean_record" "website" {
 
 resource "digitalocean_record" "website_www" {
   domain = digitalocean_domain.main.id
-  type   = "A"
+  type   = "CNAME"
   name   = "www"
-  value  = "151.101.130.159"
-  ttl    = 3600
+  value  = "twohoursonelife.com."
+  ttl    = 43200
 }
 
 
@@ -98,7 +98,7 @@ resource "digitalocean_record" "web" {
   type   = "A"
   name   = "web"
   value  = "45.55.120.214"
-  ttl    = 300
+  ttl    = 3600
 }
 
 resource "digitalocean_record" "database" {
@@ -106,7 +106,7 @@ resource "digitalocean_record" "database" {
   type   = "CNAME"
   name   = "db"
   value  = "twohoursonelife.cbqw2zmra9kl.us-east-1.rds.amazonaws.com."
-  ttl    = 3600
+  ttl    = 43200
 }
 
 
@@ -119,7 +119,7 @@ resource "digitalocean_record" "twotech" {
   type   = "A"
   name   = "twotech"
   value  = "44.216.122.169"
-  ttl    = 300
+  ttl    = 3600
 }
 
 resource "digitalocean_record" "twotech_edge" {
@@ -127,7 +127,7 @@ resource "digitalocean_record" "twotech_edge" {
   type   = "A"
   name   = "edge.twotech"
   value  = "44.216.122.169"
-  ttl    = 300
+  ttl    = 3600
 }
 
 
@@ -172,4 +172,12 @@ resource "digitalocean_record" "verification" {
   name   = "@"
   value  = "google-site-verification=lXL6lZZDqy1MW4YmswjvD5iHY1oJ4C-V8cfc0KyGS40"
   ttl    = 3600
+}
+
+# Webhost Flywheel
+resource "digitalocean_record" "website_verification" {
+  domain = digitalocean_domain.main.id
+  type   = "TXT"
+  name   = "domain-verification"
+  value  = "baf5f387-281b-4998-b75f-15ad97f592f3"
 }
