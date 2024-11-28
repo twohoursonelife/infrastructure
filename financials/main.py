@@ -1,3 +1,4 @@
+import sqlite3
 import os
 import requests
 import pandas as pd
@@ -9,7 +10,70 @@ load_dotenv()
 API_ENDPOINT = "https://api.opencollective.com/graphql/v2"
 OC_API_KEY = os.getenv("OC_API_KEY")
 WEBHOOK_URL = os.getenv("WEBHOOK_URL")
+SQLITE3_PATH = "financials.db"
 
+
+def sql_connect(path: str) -> sqlite3.Connection:
+    return sqlite3.connect(path)
+
+
+def sql_query(connection: sqlite3.Connection, query: str) -> list:
+    cursor = connection.cursor()
+    cursor.execute(query)
+    connection.commit()
+    return cursor.fetchall()
+
+
+CREATE_TRANSACTIONS_TABLE = """
+CREATE TABLE IF NOT EXISTS transactions (
+    id TEXT PRIMARY KEY,
+    created_at TEXT,
+    from_account TEXT,
+    amount REAL);
+"""
+
+
+# Why is it not creating the table?
+sql_query(
+    sql_connect(SQLITE3_PATH),
+    CREATE_TRANSACTIONS_TABLE,
+)
+
+# CREATE_TRANSACTIONS = """
+# INSERT INTO
+#     transactions (id, created_at, from_account, amount)
+# VALUES
+#     ('0a794cae-8161-4423-a5dc1-dd', '2024-11-27T00:5404411', 'Hopelynn', 20.0);
+# """
+
+# sql_query(
+#     sql_connect(SQLITE3_PATH),
+#     CREATE_TRANSACTIONS,
+# )
+
+SELECT_TRANSACTIONS = """
+SELECT * FROM transactions;
+"""
+
+print(
+    sql_query(
+        sql_connect(SQLITE3_PATH),
+        SELECT_TRANSACTIONS,
+    )
+)
+
+
+# Drop
+DROP = """
+DROP TABLE transactions;
+"""
+
+sql_query(
+    sql_connect(SQLITE3_PATH),
+    DROP,
+)
+
+exit()
 
 # Get OC API, list transactions? contributions? idk yet
 query = """
@@ -20,6 +84,7 @@ query account($account: String) {
         transactions(limit: 100, type: CREDIT) {
             totalCount
             nodes {
+                id
                 fromAccount {
                     name
                 }
@@ -42,6 +107,15 @@ contributions = pd.json_normalize(
     response.json()["data"]["account"]["transactions"]["nodes"]
 )
 
+contributions.rename(
+    columns={
+        "createdAt": "created_at",
+        "fromAccount.name": "from_account",
+        "amount.value": "amount",
+    },
+    inplace=True,
+)
+
 print(contributions)
 
 
@@ -50,6 +124,14 @@ print(contributions)
 # Diff between two dates
 
 # Save latest transactions? to sqlite db
+# Bless, it only appends new transactions
+contributions.to_sql(
+    "transactions",
+    sql_connect(SQLITE3_PATH),
+    if_exists="append",
+    index=False,
+    method="multi",
+)
 
 # Format transactions? to json
 
@@ -65,5 +147,5 @@ json = {
     "content": "[New contribution](https://linky.link) to 2HOL on [Open Collective](https://opencollective.com/twohoursonelife)!",
     "embeds": [embed],
 }
-webhook_response = requests.post(WEBHOOK_URL, json=json)
-webhook_response.raise_for_status()
+# webhook_response = requests.post(WEBHOOK_URL, json=json)
+# webhook_response.raise_for_status()
