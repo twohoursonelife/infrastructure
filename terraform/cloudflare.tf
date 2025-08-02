@@ -73,20 +73,9 @@ resource "cloudflare_dns_record" "twotech" {
   zone_id = cloudflare_zone.twohoursonelife.id
 
   name    = "twotech.twohoursonelife.com"
-  type    = "A"
+  type    = "AAAA"
   ttl     = 1
-  content = "44.216.122.169"
-  proxied = true
-}
-
-# twotech edge
-resource "cloudflare_dns_record" "twotech_edge" {
-  zone_id = cloudflare_zone.twohoursonelife.id
-
-  name    = "edge.twotech.twohoursonelife.com"
-  type    = "A"
-  ttl     = 1
-  content = "44.216.122.169"
+  content = "2a09:8280:1::60:1722:0"
   proxied = true
 }
 
