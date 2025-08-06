@@ -49,12 +49,12 @@
         app: OpenSSH
         rule: limit
 
-    - name: Firwall allow web traffic
+    - name: Firewall allow web traffic
       community.general.ufw:
         app: Nginx Full
         rule: allow
 
-    - name: Firwall allow game traffic
+    - name: Firewall allow game traffic
       community.general.ufw:
         port: 8005:8006
         protocol: tcp
@@ -85,12 +85,12 @@
 
     # TODO: Idempotent
     # TODO: Handle if changes locally
-    - name: Clone web repository # noqa: latest
-      become: false
-      ansible.builtin.git:
-        clone: true
-        repo: https://github.com/twohoursonelife/OneLifeWeb
-        dest: /var/www/{{ web_domain }}
+    # - name: Clone web repository # noqa: latest
+    #   become: false
+    #   ansible.builtin.git:
+    #     clone: true
+    #     repo: https://github.com/twohoursonelife/OneLifeWeb
+    #     dest: /var/www/{{ web_domain }}
 
     # TODO: Idempotent
     - name: Configure nginx site
