@@ -86,7 +86,7 @@ resource "cloudflare_dns_record" "database" {
   name    = "db.twohoursonelife.com"
   type    = "CNAME"
   ttl     = 1
-  content = "twohoursonelife.cbqw2zmra9kl.us-east-1.rds.amazonaws.com"
+  content = "twohoursonelife-2.cbqw2zmra9kl.us-east-1.rds.amazonaws.com"
 }
 
 # email
